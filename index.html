@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bibluno: Aprenda a Bíblia</title>
+    <meta
+      name="description"
+      content="Aprenda a Bíblia, uma descoberta por dia. Lições curtas. Progresso real. Para toda a vida."
+    />
+    <meta property="og:title" content="Bibluno: Aprenda a Bíblia" />
+    <meta
+      property="og:description"
+      content="Aprenda a Bíblia, uma descoberta por dia. Lições curtas. Progresso real. Para toda a vida."
+    />
+    <meta property="og:image" content="https://bibluno.com.br/img/icon-180.png" />
+    <meta name="theme-color" content="#1A7CF2" />
+    <link rel="icon" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/img/icon-180.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary: #1a7cf2;
+        --navy: #111c44;
+        --cream: #fffaee;
+        --muted: #4a5578;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+      }
+      body {
+        font-family: 'Nunito', system-ui, sans-serif;
+        background: var(--cream);
+        color: var(--navy);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+      main {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 48px 16px 24px;
+      }
+      .logo {
+        width: min(240px, 60vw);
+        height: auto;
+      }
+      .stage {
+        position: relative;
+        width: min(300px, 72vw);
+        aspect-ratio: 1;
+        margin: 24px 0 8px;
+        display: grid;
+        place-items: center;
+      }
+      .disc {
+        position: absolute;
+        inset: 8%;
+        border-radius: 50%;
+        background: var(--primary);
+      }
+      .blu {
+        position: relative;
+        width: 86%;
+        height: auto;
+        margin-top: -4%;
+      }
+      h1 {
+        font-weight: 900;
+        font-size: clamp(28px, 6vw, 44px);
+        line-height: 1.15;
+        margin: 16px 0 8px;
+        max-width: 16ch;
+      }
+      .sub {
+        font-weight: 600;
+        font-size: clamp(17px, 3.5vw, 20px);
+        color: var(--muted);
+        margin: 0 0 28px;
+      }
+      .soon {
+        display: inline-block;
+        background: var(--navy);
+        color: #fff;
+        font-weight: 800;
+        border-radius: 16px;
+        padding: 14px 22px;
+      }
+      footer {
+        text-align: center;
+        padding: 24px 16px 32px;
+        color: var(--muted);
+        font-weight: 600;
+        font-size: 15px;
+        line-height: 1.6;
+      }
+      footer a {
+        color: var(--primary);
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <img class="logo" src="/img/logo.png" alt="bibluno" width="600" height="212" />
+      <div class="stage">
+        <div class="disc"></div>
+        <img
+          class="blu"
+          src="/img/blu.webp"
+          alt="Blu, a ovelhinha do Bibluno, comemorando com a Bíblia"
+          width="540"
+          height="647"
+        />
+      </div>
+      <h1>Aprenda a Bíblia, uma descoberta por dia.</h1>
+      <p class="sub">Lições curtas. Progresso real. Para toda a vida.</p>
+      <span class="soon">Em breve na Google Play</span>
+    </main>
+    <footer>
+      Fale com a gente:
+      <a href="mailto:suporte@bibluno.com.br">suporte@bibluno.com.br</a><br />
+      © 2026 Bibluno
+    </footer>
+  </body>
+</html>
