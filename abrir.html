@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Abrindo o Bibluno</title>
+    <!-- Página-ponte dos botões dos e-mails (decisão E8, docs/decisoes.md 2026-10-12):
+         https://bibluno.com.br/abrir?c=<campanha> abre o app em bibluno://email?c=…, que
+         decide o destino e registra o email_link_opened; sem o app, a Google Play. Só a
+         campanha (lista fechada) passa adiante, sem dado da pessoa; sem rastreador aqui. -->
+    <meta name="robots" content="noindex" />
+    <meta name="theme-color" content="#1A7CF2" />
+    <meta name="color-scheme" content="light" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="stylesheet" href="/css/site.css" />
+  </head>
+  <body>
+    <main id="conteudo" class="container not-found">
+      <div class="blu-stage" aria-hidden="true">
+        <img src="/img/blu-happy.webp" alt="" width="291" height="360" />
+      </div>
+      <h1 class="t-title">Abrindo o Bibluno…</h1>
+      <p class="lead">Se o app não abrir sozinho, toque no botão.</p>
+      <p class="lead" id="fora-do-android" hidden>
+        O Bibluno é um app para Android. Abra este e-mail no celular para
+        continuar de onde parou.
+      </p>
+      <a class="btn btn-primary" id="abrir" href="bibluno://email">
+        Abrir no app
+      </a>
+      <a
+        class="text-link"
+        id="loja"
+        href="https://play.google.com/store/apps/details?id=app.bibluno.mobile"
+      >
+        Ainda não tem o app? Baixar na Google Play
+      </a>
+    </main>
+    <script>
+      (function () {
+        // A mesma lista de src/features/email/campaigns.ts; outra vira nenhuma.
+        var campanhas = [
+          'welcome',
+          'weekly_recap',
+          'reengagement_d7',
+          'reengagement_d14',
+          'trial_ending',
+        ];
+        var c = new URLSearchParams(location.search).get('c');
+        if (campanhas.indexOf(c) === -1) c = null;
+        var consulta = c ? '?c=' + c : '';
+        // Reinstalação vinda do e-mail: a campanha no referrer de instalação da loja.
+        var loja =
+          'https://play.google.com/store/apps/details?id=app.bibluno.mobile' +
+          (c
+            ? '&referrer=' +
+              encodeURIComponent(
+                'utm_source=email&utm_medium=email&utm_campaign=' + c,
+              )
+            : '');
+        var android = /Android/i.test(navigator.userAgent);
+        // No Android, o intent:// abre o app (o mesmo bibluno://email) ou, sem ele, a loja.
+        var app = android
+          ? 'intent://email' +
+            consulta +
+            '#Intent;scheme=bibluno;package=app.bibluno.mobile;S.browser_fallback_url=' +
+            encodeURIComponent(loja) +
+            ';end'
+          : 'bibluno://email' + consulta;
+        document.getElementById('abrir').href = app;
+        document.getElementById('loja').href = loja;
+        if (android) location.replace(app);
+        else document.getElementById('fora-do-android').hidden = false;
+      })();
+    </script>
+  </body>
+</html>
