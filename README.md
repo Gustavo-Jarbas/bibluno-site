@@ -2,4 +2,4 @@
 
 Site do Bibluno (https://bibluno.com.br), publicado pelo GitHub Pages a partir da branch `main`.
 
-Página provisória "em breve". O site completo (início, Privacidade, Termos, Excluir conta e Suporte) entra em seguida.
+O código-fonte fica na pasta `site/` do repositório do app; este repositório recebe uma cópia a cada publicação.
