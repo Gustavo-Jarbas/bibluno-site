@@ -1455,6 +1455,9 @@ ol {
   position: absolute;
   top: 0;
   left: 50%;
+  /* <figure> traz 40 px de margem lateral do navegador: sem zerar, o leque inteiro
+     andava 40 px para a direita e passava da borda no celular. */
+  margin: 0;
   width: 64%;
   max-width: 300px;
   overflow: hidden;
