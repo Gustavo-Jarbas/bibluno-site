@@ -1512,6 +1512,12 @@ ol {
   transform: translateX(-50%);
 }
 
+@media (max-width: 959px) {
+  .lesson-fan {
+    overflow-x: clip;
+  }
+}
+
 @media (max-width: 479px) {
   .lesson-fan {
     height: 290px;
@@ -2507,6 +2513,10 @@ ol {
   color: var(--text);
   font-size: 17px;
   line-height: 28px;
+}
+
+.prose a {
+  overflow-wrap: anywhere;
 }
 
 .prose > section + section {
