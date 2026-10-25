@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "app.bibluno.mobile",
+      "sha256_cert_fingerprints": [
+        "84:B9:AC:37:9B:D1:1A:0A:AA:3D:7B:D6:8B:41:AF:F9:2F:1E:15:9D:7F:BB:2E:61:8D:09:57:74:6E:5C:77:F1"
+      ]
+    }
+  }
+]
