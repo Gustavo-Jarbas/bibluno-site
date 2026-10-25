@@ -12,8 +12,8 @@
     window.addEventListener('load', run, { once: true });
   };
 
-  // Selo da loja: <a data-store="google_play" href="…">. Enquanto a chamada é "Em breve",
-  // sem link, nada é enviado. Só a loja e a página, nenhum dado pessoal.
+  // Selo da loja: <a data-store="google_play" href="…">. Só a loja e a página, nenhum
+  // dado pessoal.
   document.addEventListener('click', (event) => {
     const link = event.target.closest?.('a[data-store]');
     if (!link) return;

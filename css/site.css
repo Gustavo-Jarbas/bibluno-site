@@ -384,44 +384,7 @@ ol {
 
 /* ---------- Chamada da loja ---------- */
 
-/* "Em breve na Google Play": aviso, não botão. Quando o app sair, este bloco dá lugar
-   ao selo oficial da Google Play com o link (ver o comentário no HTML). */
-.store-soon {
-  display: inline-flex;
-  align-items: center;
-  gap: 14px;
-  min-height: 60px;
-  padding: 10px 22px 10px 16px;
-  border-radius: var(--radius-button);
-  background: var(--navy);
-  color: var(--surface);
-  box-shadow: 0 var(--depth) 0 var(--night-plan-shade);
-  margin-bottom: var(--depth);
-}
-
-.store-soon .faiscas {
-  width: 30px;
-  height: 30px;
-  color: var(--accent);
-}
-
-.store-soon span {
-  display: grid;
-  line-height: 1.15;
-}
-
-.store-soon small {
-  color: var(--night-text-soft);
-  font-size: 13px;
-  font-weight: 700;
-}
-
-.store-soon b {
-  font-size: 21px;
-  font-weight: 800;
-}
-
-/* Selo oficial, quando entrar: <a class="store-badge" data-store="google_play" …><img …></a> */
+/* O selo oficial da Google Play, com o link da loja (decisão de 25/10/2026). */
 .store-badge {
   display: inline-block;
   border-radius: 12px;
