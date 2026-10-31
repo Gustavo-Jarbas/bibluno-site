@@ -6,7 +6,7 @@
     <title>Bibluno: Aprenda a Bíblia, uma descoberta por dia</title>
     <meta
       name="description"
-      content="Aprenda a Bíblia com lições curtas, exercícios e revisões, com o Blu ao seu lado. Lições curtas. Progresso real. Para toda a vida. Disponível na Google Play."
+      content="Aprenda a Bíblia com lições curtas, exercícios e revisões, com o Blu ao seu lado. Lições curtas. Progresso real. Para toda a vida. Em breve na Google Play."
     />
     <link rel="canonical" href="https://bibluno.com.br/" />
     <meta name="theme-color" content="#1A7CF2" />
@@ -21,7 +21,7 @@
     />
     <meta
       property="og:description"
-      content="Lições curtas. Progresso real. Para toda a vida. Disponível na Google Play."
+      content="Lições curtas. Progresso real. Para toda a vida. Em breve na Google Play."
     />
     <meta property="og:image" content="https://bibluno.com.br/img/og.jpg" />
     <meta property="og:image:width" content="1200" />
@@ -146,19 +146,21 @@
             </p>
 
             <div class="hero-actions">
-              <!-- O selo oficial da Play; o link leva a origem da instalação (docs/09, "Links com UTM"). -->
-              <a
-                class="store-badge"
-                data-store="google_play"
-                href="https://play.google.com/store/apps/details?id=app.bibluno.mobile&amp;referrer=utm_source%3Dsite%26utm_medium%3Dselo%26utm_campaign%3Dhome"
-              >
-                <img
-                  src="/img/google-play-badge.png"
-                  alt="Disponível no Google Play"
-                  width="646"
-                  height="192"
-                />
-              </a>
+              <!--
+                LOJA: quando o app sair, troque os dois <p class="store-soon"> pelo selo oficial,
+                com o link e o data-store que dispara o evento store_click (js/site.js):
+                <a class="store-badge" data-store="google_play"
+                   href="https://play.google.com/store/apps/details?id=app.bibluno.mobile&amp;referrer=utm_source%3Dsite%26utm_medium%3Dselo%26utm_campaign%3Dhome">
+                  <img src="/img/google-play-badge.png" alt="Disponível no Google Play" width="646" height="192" />
+                </a>
+                No fim da página, utm_campaign%3Dhome-fim.
+              -->
+              <p class="store-soon">
+                <svg class="faiscas" aria-hidden="true">
+                  <use href="/img/icones.svg#faiscas" />
+                </svg>
+                <span><small>Em breve na</small> <b>Google Play</b></span>
+              </p>
               <p class="hero-note">
                 <svg class="i i-sm" aria-hidden="true">
                   <use href="/img/icones.svg#check" />
@@ -1103,18 +1105,12 @@
               Comece grátis, no seu ritmo, com o Blu ao seu lado.
             </p>
             <div class="hero-actions">
-              <a
-                class="store-badge"
-                data-store="google_play"
-                href="https://play.google.com/store/apps/details?id=app.bibluno.mobile&amp;referrer=utm_source%3Dsite%26utm_medium%3Dselo%26utm_campaign%3Dhome-fim"
-              >
-                <img
-                  src="/img/google-play-badge.png"
-                  alt="Disponível no Google Play"
-                  width="646"
-                  height="192"
-                />
-              </a>
+              <p class="store-soon">
+                <svg class="faiscas" aria-hidden="true">
+                  <use href="/img/icones.svg#faiscas" />
+                </svg>
+                <span><small>Em breve na</small> <b>Google Play</b></span>
+              </p>
             </div>
           </div>
         </div>
