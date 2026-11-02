@@ -44,6 +44,7 @@
     <link rel="icon" href="/favicon.ico" sizes="48x48" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
+    <link rel="preconnect" href="https://cdn.himetrica.com" />
     <link
       rel="preload"
       href="/fonts/nunito-800.woff2"
@@ -59,6 +60,31 @@
       crossorigin
     />
     <link rel="stylesheet" href="/css/site.css" />
+    <!-- Ainda não há versão para iPhone: quem chega por um vê o aviso e não vê a barra da
+         loja. Aqui em cima para o aviso já entrar na primeira pintura, sem pular a tela. -->
+    <script>
+      if (
+        /iPhone|iPad|iPod/.test(navigator.userAgent) ||
+        (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)
+      ) {
+        document.documentElement.classList.add('is-ios');
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "MobileApplication",
+        "name": "Bibluno: Aprenda a Bíblia",
+        "description": "Lições curtas e ilustradas para aprender a Bíblia, uma descoberta por dia.",
+        "url": "https://bibluno.com.br/",
+        "image": "https://bibluno.com.br/img/icon-512.png",
+        "inLanguage": "pt-BR",
+        "operatingSystem": "Android",
+        "applicationCategory": "EducationalApplication",
+        "installUrl": "https://play.google.com/store/apps/details?id=app.bibluno.mobile",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "BRL" }
+      }
+    </script>
     <script
       defer
       src="https://cdn.himetrica.com/tracker.js"
@@ -146,25 +172,49 @@
             </p>
 
             <div class="hero-actions">
-              <!-- O selo oficial da Play; o link leva a origem da instalação (docs/09, "Links com UTM"). -->
-              <a
-                class="store-badge"
-                data-store="google_play"
-                href="https://play.google.com/store/apps/details?id=app.bibluno.mobile&amp;referrer=utm_source%3Dsite%26utm_medium%3Dselo%26utm_campaign%3Dhome"
-              >
-                <img
-                  src="/img/google-play-badge.png"
-                  alt="Disponível no Google Play"
-                  width="646"
-                  height="192"
-                />
-              </a>
-              <p class="hero-note">
-                <svg class="i i-sm" aria-hidden="true">
-                  <use href="/img/icones.svg#check" />
-                </svg>
-                Grátis para começar, sem cadastro
+              <!-- O selo oficial da Play; o link leva a origem da instalação (docs/09, "Links com UTM").
+                   No computador, o código QR leva direto ao celular, onde o app instala. -->
+              <div class="store-row">
+                <a
+                  class="store-badge"
+                  data-store="google_play"
+                  data-place="topo"
+                  href="https://play.google.com/store/apps/details?id=app.bibluno.mobile&amp;referrer=utm_source%3Dsite%26utm_medium%3Dselo%26utm_campaign%3Dhome"
+                >
+                  <img
+                    src="/img/google-play-badge.png"
+                    alt="Disponível no Google Play"
+                    width="646"
+                    height="192"
+                  />
+                </a>
+                <p class="store-qr">
+                  <img
+                    src="/img/qr-baixar.svg"
+                    alt="Código QR para baixar o Bibluno na Google Play"
+                    width="111"
+                    height="111"
+                  />
+                  <span>Aponte a câmera do celular para baixar</span>
+                </p>
+              </div>
+              <p class="hero-note only-ios">
+                Por enquanto, o Bibluno é só para Android.
               </p>
+              <ul class="hero-notes">
+                <li class="hero-note">
+                  <svg class="i i-sm" aria-hidden="true">
+                    <use href="/img/icones.svg#check" />
+                  </svg>
+                  Grátis para começar, sem cadastro
+                </li>
+                <li class="hero-note">
+                  <svg class="i i-sm" aria-hidden="true">
+                    <use href="/img/icones.svg#check" />
+                  </svg>
+                  Para adolescentes e adultos
+                </li>
+              </ul>
               <a class="text-link" href="#experimente">
                 Experimente uma lição agora
                 <svg class="i i-sm" aria-hidden="true">
@@ -385,13 +435,31 @@
                     Sequência: 1 dia
                   </p>
                 </div>
-                <div class="step-foot">
-                  <button
-                    class="btn btn-secondary"
-                    type="button"
-                    data-action="restart"
+                <!-- O ponto alto da demonstração: a loja entra aqui, com a próxima lição real da
+                     trilha, e refazer vira link. -->
+                <div class="step-foot step-foot-done">
+                  <p class="next-lesson">
+                    Próxima descoberta: <b>Céu, terra e mares</b>
+                  </p>
+                  <a
+                    class="store-badge"
+                    data-store="google_play"
+                    data-place="demo"
+                    href="https://play.google.com/store/apps/details?id=app.bibluno.mobile&amp;referrer=utm_source%3Dsite%26utm_medium%3Dselo%26utm_campaign%3Ddemo"
                   >
-                    <svg class="i i-sm" aria-hidden="true">
+                    <img
+                      src="/img/google-play-badge.png"
+                      alt="Disponível no Google Play"
+                      width="646"
+                      height="192"
+                      loading="lazy"
+                    />
+                  </a>
+                  <p class="hero-note only-ios">
+                    Por enquanto, o Bibluno é só para Android.
+                  </p>
+                  <button class="help-link" type="button" data-action="restart">
+                    <svg class="i" aria-hidden="true">
                       <use href="/img/icones.svg#rotate-ccw" />
                     </svg>
                     Fazer de novo
@@ -473,6 +541,59 @@
               </div>
             </div>
           </section>
+        </div>
+      </section>
+
+      <!-- Para quem: as dúvidas de quem chega, respondidas pelo Blu. Só fatos do produto. -->
+      <section
+        id="para-quem"
+        class="section"
+        aria-labelledby="para-quem-titulo"
+      >
+        <div class="container chat-grid">
+          <div class="chat-head">
+            <h2 id="para-quem-titulo" class="t-title">
+              Você não precisa saber nada antes
+            </h2>
+            <p class="lead">É só começar pela primeira lição.</p>
+            <div class="blu-stage">
+              <img
+                src="/img/blu-happy.webp"
+                alt=""
+                width="291"
+                height="360"
+                loading="lazy"
+              />
+            </div>
+          </div>
+          <dl class="chat">
+            <div>
+              <dt>Nunca li a Bíblia.</dt>
+              <dd>
+                Toque em “Me guie” e a gente começa pelo básico: como ela se
+                organiza em livros, capítulos e versículos.
+              </dd>
+            </div>
+            <div>
+              <dt>Tenho pouco tempo.</dt>
+              <dd>
+                Uma lição leva de 3 a 8 minutos. Uma descoberta cabe numa pausa.
+              </dd>
+            </div>
+            <div>
+              <dt>Já comecei e parei.</dt>
+              <dd>
+                Aqui não tem calendário atrasado. Você volta pela próxima lição.
+              </dd>
+            </div>
+            <div>
+              <dt>E se eu errar?</dt>
+              <dd>
+                Você vê a resposta certa com uma explicação e continua. Sem
+                vidas e sem bloqueio.
+              </dd>
+            </div>
+          </dl>
         </div>
       </section>
 
@@ -558,7 +679,7 @@
                     height="400"
                     loading="lazy"
                   />
-                  <h4>A revisão volta na hora certa</h4>
+                  <p class="review-title">A revisão volta na hora certa</p>
                   <p>Cada questão reaparece em dias cada vez mais espaçados.</p>
                   <ol
                     class="intervals"
@@ -598,7 +719,7 @@
                     <svg class="i" aria-hidden="true">
                       <use href="/img/icones.svg#bell" />
                     </svg>
-                    Lembrete às 8:00
+                    Lembrete às 8:30
                   </span>
                   <img
                     class="widget"
@@ -646,11 +767,11 @@
               Escolha por onde começar
             </h2>
             <p class="lead">
-              Cinco trilhas, cada uma com suas unidades e lições. Você pode
-              trocar de trilha quando quiser.
+              Cinco trilhas e mais de 300 lições. Você pode trocar de trilha
+              quando quiser.
             </p>
           </header>
-          <ul class="tracks">
+          <ul class="tracks" tabindex="0" aria-label="As cinco trilhas">
             <li class="track t-historias">
               <img
                 src="/img/capa-hb-u03.webp"
@@ -782,6 +903,22 @@
             </svg>
             Ainda não sabe qual escolher? O Bibluno ajuda a começar, do básico.
           </p>
+          <div class="section-cta">
+            <a
+              class="store-badge"
+              data-store="google_play"
+              data-place="trilhas"
+              href="https://play.google.com/store/apps/details?id=app.bibluno.mobile&amp;referrer=utm_source%3Dsite%26utm_medium%3Dselo%26utm_campaign%3Dtrilhas"
+            >
+              <img
+                src="/img/google-play-badge.png"
+                alt="Disponível no Google Play"
+                width="646"
+                height="192"
+                loading="lazy"
+              />
+            </a>
+          </div>
         </div>
       </section>
 
@@ -976,7 +1113,7 @@
             <h2 id="perguntas-titulo" class="t-title">Perguntas frequentes</h2>
           </header>
           <div class="faq">
-            <details>
+            <details open>
               <summary>
                 O Bibluno é grátis?
                 <svg class="i" aria-hidden="true">
@@ -1106,6 +1243,7 @@
               <a
                 class="store-badge"
                 data-store="google_play"
+                data-place="fim"
                 href="https://play.google.com/store/apps/details?id=app.bibluno.mobile&amp;referrer=utm_source%3Dsite%26utm_medium%3Dselo%26utm_campaign%3Dhome-fim"
               >
                 <img
@@ -1113,13 +1251,43 @@
                   alt="Disponível no Google Play"
                   width="646"
                   height="192"
+                  loading="lazy"
                 />
               </a>
+              <p class="hero-note only-ios">
+                Por enquanto, o Bibluno é só para Android.
+              </p>
+              <p class="hero-note">
+                <svg class="i i-sm" aria-hidden="true">
+                  <use href="/img/icones.svg#check" />
+                </svg>
+                Grátis para começar, sem cadastro
+              </p>
             </div>
           </div>
         </div>
       </section>
     </main>
+
+    <!-- No celular, a loja fica a um toque no resto da página (js/site.js). -->
+    <aside class="store-bar" data-store-bar aria-label="Baixar o Bibluno">
+      <img
+        src="/img/icon-192.png"
+        alt=""
+        width="192"
+        height="192"
+        loading="lazy"
+      />
+      <p><b>Bibluno</b> <span>Grátis para começar</span></p>
+      <a
+        class="btn btn-primary"
+        data-store="google_play"
+        data-place="barra"
+        href="https://play.google.com/store/apps/details?id=app.bibluno.mobile&amp;referrer=utm_source%3Dsite%26utm_medium%3Dselo%26utm_campaign%3Dbarra"
+      >
+        Baixar
+      </a>
+    </aside>
 
     <footer class="site-footer">
       <div class="container">

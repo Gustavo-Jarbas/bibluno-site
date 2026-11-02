@@ -1,6 +1,7 @@
-// Bibluno · bibluno.com.br. Dois comportamentos, sem dependências:
-// 1. medição (Himetrica): só o clique na chamada da loja, quando ela virar link;
-// 2. a demonstração de uma lição na home.
+// Bibluno · bibluno.com.br. Três comportamentos, sem dependências:
+// 1. medição (Himetrica): só o clique na chamada da loja;
+// 2. a barra da loja no celular;
+// 3. a demonstração de uma lição na home.
 (() => {
   'use strict';
 
@@ -12,16 +13,34 @@
     window.addEventListener('load', run, { once: true });
   };
 
-  // Selo da loja: <a data-store="google_play" href="…">. Só a loja e a página, nenhum
-  // dado pessoal.
+  // Chamada da loja: <a data-store="google_play" data-place="topo" href="…">. Só a loja,
+  // a página e o lugar da chamada, nenhum dado pessoal.
   document.addEventListener('click', (event) => {
     const link = event.target.closest?.('a[data-store]');
     if (!link) return;
     himetrica('track', 'store_click', {
       store: link.dataset.store,
       page: window.location.pathname,
+      place: link.dataset.place,
     });
   });
+
+  // Barra da loja: só quando nenhuma outra chamada está à vista, para não competir com o
+  // selo nem cobrir a demonstração. Sem JS, ela não aparece e os selos continuam na página.
+  const storeBar = document.querySelector('[data-store-bar]');
+  if (storeBar && 'IntersectionObserver' in window) {
+    const inView = new Set();
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) inView.add(entry.target);
+        else inView.delete(entry.target);
+      });
+      storeBar.classList.toggle('is-visible', inView.size === 0);
+    });
+    document
+      .querySelectorAll('.hero-actions, .phone, .section-cta, .site-footer')
+      .forEach((element) => observer.observe(element));
+  }
 
   // Sumário das páginas de texto: aberto no computador (coluna fixa ao lado do texto) e
   // fechado no celular, para o texto começar logo. Sem JS, fica aberto.

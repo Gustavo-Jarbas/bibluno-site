@@ -132,6 +132,13 @@ html {
   scroll-padding-top: 24px;
 }
 
+/* A barra da loja não cobre o que recebe o foco no celular. */
+@media (max-width: 959px) {
+  html {
+    scroll-padding-bottom: 88px;
+  }
+}
+
 body {
   margin: 0;
   background: var(--surface);
@@ -170,7 +177,8 @@ p {
 }
 
 p,
-li {
+li,
+dd {
   text-wrap: pretty;
 }
 
@@ -183,6 +191,14 @@ a {
 
 a:hover {
   color: var(--navy);
+}
+
+/* Dois toques seguidos na demonstração respondem, sem dar zoom na página. */
+a,
+button,
+label,
+summary {
+  touch-action: manipulation;
 }
 
 :focus-visible {
@@ -395,6 +411,124 @@ ol {
   width: auto;
 }
 
+.store-row {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* O app instala no celular: no computador, o código QR leva até ele. */
+.store-qr {
+  display: none;
+}
+
+@media (min-width: 1100px) and (hover: hover) and (pointer: fine) {
+  html:not(.is-ios) .store-qr {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .store-qr img {
+    width: 111px;
+    border: var(--border-card) solid var(--line);
+    border-radius: var(--radius-tile);
+  }
+  .store-qr span {
+    max-width: 112px;
+    color: var(--text);
+    font-size: 14px;
+    line-height: 18px;
+    font-weight: 700;
+  }
+}
+
+/* Aviso para quem chega pelo iPhone (o script no <head> da home marca o <html>). */
+html:not(.is-ios) .only-ios {
+  display: none;
+}
+
+.is-ios .section-cta,
+.is-ios .step-foot-done .store-badge {
+  display: none;
+}
+
+/* Depois das trilhas: a loja no meio da página. */
+.section-cta {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+/* Barra da loja no celular */
+.store-bar {
+  position: fixed;
+  inset: auto 0 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px var(--gutter) calc(10px + env(safe-area-inset-bottom));
+  border-top: 1px solid var(--line);
+  background: var(--surface);
+  box-shadow: 0 -8px 24px -16px color-mix(in srgb, var(--navy) 35%, transparent);
+  transform: translateY(100%);
+  visibility: hidden;
+  transition:
+    transform 220ms var(--ease),
+    visibility 0s linear 220ms;
+}
+
+.store-bar.is-visible {
+  transform: none;
+  visibility: visible;
+  transition:
+    transform 220ms var(--ease),
+    visibility 0s;
+}
+
+.store-bar img {
+  flex: none;
+  width: 44px;
+  border-radius: var(--radius-tile);
+}
+
+.store-bar p {
+  flex: 1;
+  min-width: 0;
+  color: var(--text);
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 600;
+}
+
+.store-bar b {
+  display: block;
+  color: var(--navy);
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 800;
+}
+
+.store-bar span {
+  display: block;
+}
+
+.store-bar .btn {
+  flex: none;
+  min-height: var(--touch);
+  padding-block: 8px;
+}
+
+@media (min-width: 960px) {
+  .store-bar {
+    display: none;
+  }
+}
+
+.is-ios .store-bar {
+  display: none;
+}
+
 /* ---------- Cabeçalho ---------- */
 
 .site-header {
@@ -484,6 +618,8 @@ ol {
 .hero-art {
   position: relative;
   width: min(100%, 460px);
+  /* Em celular baixo, a arte encolhe para o selo caber na primeira tela. */
+  width: min(100%, 460px, 42svh);
   margin-inline: auto;
   aspect-ratio: 1280 / 1067;
 }
@@ -554,6 +690,13 @@ ol {
   color: var(--success);
 }
 
+.hero-notes {
+  display: inline-grid;
+  justify-items: start;
+  gap: 2px;
+  list-style: none;
+}
+
 @media (min-width: 960px) {
   .hero {
     padding-bottom: 120px;
@@ -618,37 +761,21 @@ ol {
   color: var(--surface);
 }
 
-/* Faíscas ao fundo, poucas e grandes */
-.band-blue::before,
-.band-blue::after {
+/* Um brilho só, no alto: o azul da marca continua sendo o fundo. */
+.band-blue::before {
   content: '';
   position: absolute;
-  border-radius: 50%;
-  pointer-events: none;
-}
-
-.band-blue::before {
   width: 520px;
   height: 520px;
   top: -220px;
   right: -160px;
+  border-radius: 50%;
   background: radial-gradient(
     closest-side,
     color-mix(in srgb, var(--surface) 16%, transparent),
     transparent
   );
-}
-
-.band-blue::after {
-  width: 420px;
-  height: 420px;
-  bottom: -200px;
-  left: -140px;
-  background: radial-gradient(
-    closest-side,
-    color-mix(in srgb, var(--accent) 22%, transparent),
-    transparent
-  );
+  pointer-events: none;
 }
 
 .band-blue h2,
@@ -832,7 +959,7 @@ ol {
 }
 
 .demo[data-step='done'] .lesson-header {
-  visibility: hidden;
+  display: none;
 }
 
 .step-body {
@@ -852,6 +979,36 @@ ol {
 .step-foot .btn {
   width: 100%;
   min-height: 48px;
+}
+
+/* Conclusão: a próxima lição, a loja e o link para refazer. */
+.step-foot-done {
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  padding-block: 10px 6px;
+  text-align: center;
+}
+
+.step-foot-done .store-badge img {
+  height: 52px;
+}
+
+.step-foot-done .help-link {
+  margin-top: 0;
+}
+
+.next-lesson {
+  color: var(--text);
+  font-size: 15px;
+  line-height: 20px;
+  font-weight: 600;
+}
+
+.next-lesson b {
+  display: block;
+  color: var(--navy);
+  font-weight: 800;
 }
 
 .track-label {
@@ -1272,7 +1429,7 @@ ol {
 
 .step-done .blu-stage {
   width: 124px;
-  margin: 18px auto 0;
+  margin: 4px auto 0;
 }
 
 .step-done .blu-stage img {
@@ -1280,7 +1437,7 @@ ol {
 }
 
 .step-done h3 {
-  margin-top: 14px;
+  margin-top: 10px;
   font-size: 23px;
 }
 
@@ -1320,7 +1477,7 @@ ol {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  margin-top: 16px;
+  margin-top: 12px;
   padding: 6px 14px 6px 10px;
   border: var(--border-card) solid var(--plus-gold-shade);
   border-radius: 999px;
@@ -1335,6 +1492,88 @@ ol {
   height: 18px;
   color: var(--historias-shade);
   fill: var(--historias);
+}
+
+/* ---------- Para quem (conversa com o Blu) ---------- */
+
+.chat-grid {
+  display: grid;
+  gap: 32px;
+  align-items: center;
+}
+
+.chat-head {
+  text-align: center;
+}
+
+.chat-head .lead {
+  margin-top: 16px;
+}
+
+.chat-head .blu-stage {
+  width: 148px;
+  margin: 24px auto 0;
+}
+
+.chat-head .blu-stage img {
+  width: 124px;
+}
+
+/* Quem chega fala à direita, e o Blu responde à esquerda, como numa conversa. */
+.chat {
+  display: grid;
+  gap: 24px;
+  width: 100%;
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+.chat > div {
+  display: grid;
+  gap: 8px;
+}
+
+.chat dt,
+.chat dd {
+  max-width: 88%;
+  margin: 0;
+  padding: 12px 16px;
+  border-radius: var(--radius-card);
+  line-height: 24px;
+}
+
+.chat dt {
+  justify-self: end;
+  border-bottom-right-radius: 4px;
+  background: var(--primary-pressed);
+  color: var(--surface);
+  font-weight: 700;
+}
+
+.chat dd {
+  justify-self: start;
+  border-bottom-left-radius: 4px;
+  background: var(--primary-soft);
+  color: var(--navy);
+  font-weight: 600;
+}
+
+@media (min-width: 960px) {
+  .chat-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    gap: 72px;
+  }
+  .chat-head {
+    text-align: left;
+  }
+  .chat-head .blu-stage {
+    width: 240px;
+    margin-inline: 0;
+    margin-top: 32px;
+  }
+  .chat-head .blu-stage img {
+    width: 200px;
+  }
 }
 
 /* ---------- Como funciona ---------- */
@@ -1532,10 +1771,13 @@ ol {
   width: 112px;
 }
 
-.review-card h4 {
+.review-card .review-title {
   max-width: 62%;
+  margin: 0;
+  color: var(--navy);
   font-size: 19px;
   line-height: 24px;
+  font-weight: 800;
 }
 
 .review-card p {
